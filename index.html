@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Проблемы ЖК Turan Palace (2-я очередь): кто отвечает, обещанные сроки, просрочки и статьи законов РК.">
+<title>Трекер Turan Palace</title>
+<style>
+/* Простая раскладка для чтения: одна колонка, крупный текст, стандартные шрифты, высокий контраст */
+:root{
+  --bg:#ffffff; --surface:#ffffff; --soft:#f2f4f6; --ink:#111111; --muted:#3d3d3d; --line:#c4c8cc;
+  --accent:#0a4a8c;
+  --red:#b00020; --red-soft:#fdecee; --amber:#8a4b00; --amber-soft:#fff3e0;
+  --blue:#0a4a8c; --blue-soft:#e8f0fa; --violet:#5b2a91; --violet-soft:#f1eafa;
+  --green:#1e6b26; --green-soft:#e8f5e9;
+  --font:Arial,"Helvetica Neue",Helvetica,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121212; --surface:#1b1b1b; --soft:#242628; --ink:#f2f2f2; --muted:#cfcfcf; --line:#4a4d50;
+  --accent:#8cc0ff; --red:#ff8a8a; --red-soft:#3a1c1e; --amber:#ffc070; --amber-soft:#3a2c16;
+  --blue:#8cc0ff; --blue-soft:#1a2a3f; --violet:#cbb0f5; --violet-soft:#2b2240;
+  --green:#8fd694; --green-soft:#1c3320; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121212; --surface:#1b1b1b; --soft:#242628; --ink:#f2f2f2; --muted:#cfcfcf; --line:#4a4d50;
+  --accent:#8cc0ff; --red:#ff8a8a; --red-soft:#3a1c1e; --amber:#ffc070; --amber-soft:#3a2c16;
+  --blue:#8cc0ff; --blue-soft:#1a2a3f; --violet:#cbb0f5; --violet-soft:#2b2240;
+  --green:#8fd694; --green-soft:#1c3320; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:18px;line-height:1.6}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 60px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--font);margin:0;text-wrap:balance}
+h1{font-size:30px;line-height:1.25}
+h2{font-size:24px;line-height:1.3}
+h3{font-size:20px;line-height:1.35}
+p{margin:0}
+.eyebrow{font-size:16px;color:var(--muted)}
+.lead{color:var(--ink);max-width:65ch}
+header{display:flex;flex-direction:column;gap:10px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.stat{background:var(--soft);border:2px solid var(--line);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.stat:hover,.stat:focus-visible{border-color:var(--accent);outline:none}
+.stat b{font-size:34px;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat span{font-size:17px}
+.stat.s-overdue b{color:var(--red)} .stat.s-nodate b{color:var(--amber)} .stat.s-progress b{color:var(--blue)} .stat.s-dispute b{color:var(--violet)}
+.warranty{background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.warranty .w{display:flex;flex-direction:column;gap:2px;min-width:0}
+.warranty .w b{font-size:20px}
+.warranty .w small{color:var(--muted);font-size:16px}
+.warranty .note{font-size:17px;border-top:1px solid var(--line);padding-top:12px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--bg);padding-block:6px}
+.chip{font:inherit;font-size:17px;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:8px 16px;cursor:pointer;min-height:44px}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.chip:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+select,input[type=search]{font:inherit;font-size:17px;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:8px 12px;min-height:44px;min-width:0;max-width:100%}
+input[type=search]{flex:1 1 220px}
+.count{font-size:16px;color:var(--muted)}
+.list{display:flex;flex-direction:column;gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-left:8px solid var(--st,var(--line));border-radius:6px;min-width:0}
+.card summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.card summary::-webkit-details-marker{display:none}
+.card .t{display:flex;flex-direction:column;gap:8px;min-width:0}
+.meta{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:16px;color:var(--muted)}
+.meta .id{font-weight:700}
+.pill{font-size:16px;font-weight:700;padding:2px 10px;border-radius:4px;background:var(--pbg);color:var(--st)}
+.due{font-size:17px;color:var(--ink)}
+.due.late{color:var(--red);font-weight:700}
+.more{font-size:16px;color:var(--accent);text-decoration:underline}
+.card[open] .more{font-size:0}.card[open] .more::after{content:"Свернуть";font-size:16px}
+.body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--line)}
+.body .f{display:flex;flex-direction:column;gap:2px;min-width:0}
+.body .k{font-size:16px;font-weight:700;color:var(--muted)}
+.law{display:flex;flex-direction:column;gap:4px}
+.law a{font-size:17px;color:var(--accent);text-decoration:underline}
+.st-overdue{--st:var(--red);--pbg:var(--red-soft)} .st-nodate{--st:var(--amber);--pbg:var(--amber-soft)}
+.st-progress{--st:var(--blue);--pbg:var(--blue-soft)} .st-partial{--st:var(--blue);--pbg:var(--blue-soft)}
+.st-dispute{--st:var(--violet);--pbg:var(--violet-soft)} .st-done{--st:var(--green);--pbg:var(--green-soft)}
+.empty{padding:24px;text-align:center;color:var(--muted);background:var(--soft);border-radius:6px}
+section{display:flex;flex-direction:column;gap:14px}
+.steps{display:flex;flex-direction:column;gap:12px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.step .n{font-size:16px;color:var(--muted);font-weight:700}
+.step ul{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.tbl{display:flex;flex-direction:column;gap:10px}
+.lawrow{border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.lawrow:target{border-color:var(--accent);background:var(--blue-soft)}
+.lawrow b{font-size:19px}
+.lawrow .k{font-size:16px;font-weight:700;color:var(--muted)}
+.caveat{font-size:17px;border:2px solid var(--amber);padding:12px 14px;background:var(--amber-soft);border-radius:6px}
+.src{font-size:17px} .src a{color:var(--accent)}
+.src li{margin-bottom:6px}
+</style>
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">ЖК «Turan Palace», 2-я очередь · ул. Туран 83/2 · на 10.11.2026</span>
+    <h1>Что ЖК решает, а что тянет</h1>
+    <p class="lead">Проблемы дома из чатов «Только собственники» и «Обсуждение от жильцов» (11.08–09.11.2026). По каждой: кто отвечает, кто должен сделать, какой срок обещали и по какой статье требовать. Чтобы прочитать подробности, нажмите на проблему.</p>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="warranty" aria-label="Гарантийные сроки">
+    <div class="w"><span class="eyebrow">Отделка, благоустройство</span><b>не менее 2 лет</b><small>Закон «О долевом участии в жилищном строительстве», договор ДДУ</small></div>
+    <div class="w"><span class="eyebrow">Инженерное оборудование</span><b>около 3 лет</b><small>насосы, лифты, освещение; по гарантии завода</small></div>
+    <div class="w"><span class="eyebrow">Несущие и ограждающие</span><b>10 лет</b><small>стены, фасад, кровля; ст. 665 ГК РК, если в договоре не указано иное</small></div>
+    <p class="note"><b>Главное:</b> сроки считаются от акта ввода дома в эксплуатацию. Точной даты в чатах нет: документы оформляли в январе–феврале 2026, поэтому в чате говорят «остался 1 год». Первым делом запросите у застройщика копию акта ввода. Новый Строительный кодекс (5 и 10 лет) действует для домов, введённых после 01.07.2026, и на наш дом, скорее всего, не распространяется.</p>
+  </div>
+
+  <div class="controls" role="toolbar" aria-label="Фильтры">
+    <button class="chip" data-f="all" aria-pressed="true" id="f-all">Все</button>
+    <button class="chip" data-f="overdue" aria-pressed="false" id="f-overdue">Просрочено</button>
+    <button class="chip" data-f="nodate" aria-pressed="false" id="f-nodate">Без срока</button>
+    <button class="chip" data-f="progress" aria-pressed="false" id="f-progress">В работе</button>
+    <button class="chip" data-f="dispute" aria-pressed="false" id="f-dispute">Спорно</button>
+    <select id="who" aria-label="Кто отвечает">
+      <option value="">Кто отвечает: все</option>
+      <option value="Z">Застройщик</option>
+      <option value="UK">Управляющая компания</option>
+      <option value="S">Продавец / отдел продаж</option>
+      <option value="G">Госорганы, подрядчики</option>
+      <option value="R">Сами жильцы</option>
+    </select>
+    <input type="search" id="q" placeholder="Поиск: паркинг, вода, фасад…" aria-label="Поиск">
+    <span class="count" id="count"></span>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <section id="punish">
+    <h2>Как наказывать: четыре шага</h2>
+    <p>Начинайте с первого шага. Если не помогло, переходите к следующему.</p>
+    <div class="steps">
+      <div class="step"><span class="n">Ступень 1 · сразу</span><h3>Письменная претензия</h3>
+        <ul><li>Одна коллективная претензия застройщику по всем дефектам: фото, адреса, срок устранения 30 дней.</li><li>Отдать под подпись в офис или отправить заказным письмом с уведомлением.</li><li>Отдельный запрос в УК: протокол собрания о тарифе и домофоне, отчёты за каждый месяц.</li></ul></div>
+      <div class="step"><span class="n">Ступень 2 · параллельно</span><h3>Жалобы в госорганы</h3>
+        <ul><li>eOtinish и iKomek 109: ГАСК (фасад, лестница, проектные работы), ДЧС (пожарная безопасность паркинга), акимат района Нура (двор, тротуар).</li><li>Чем больше одинаковых обращений от разных квартир, тем выше шанс на проверку.</li><li>Если орган ответил отпиской, обжаловать по ст. 91 АППК.</li></ul></div>
+      <div class="step"><span class="n">Ступень 3 · если не помогло</span><h3>Иск в суд</h3>
+        <ul><li>Иск о понуждении устранить недостатки, с судебной строительной экспертизой.</li><li>Неустойка за просрочку сдачи дома: 0,05% от цены квартиры за день.</li><li>Попросить суд арестовать имущество застройщика (обеспечение иска), раз есть признаки, что компания сворачивается.</li><li>Надёжнее подавать от имени ОСИ, а не по одной квартире.</li></ul></div>
+      <div class="step"><span class="n">Ступень 4 · только с доказательствами</span><h3>Полиция</h3>
+        <ul><li>Только если есть доказательства умысла: деньги взяли, а исполнять и не собирались.</li><li>Без доказательств это гражданский спор, и полиция откажет.</li></ul></div>
+    </div>
+
+    <h2>Статьи закона и как их применить</h2>
+    <div class="tbl" id="laws"></div>
+    <p class="caveat">Я не юрист: это справочная сводка, а не юридическая консультация. Номера статей я сверил по открытым источникам на ноябрь 2026, но перед подачей сверьте их с официальными текстами на adilet.zan.kz или у юриста по жилищным спорам. Многое зависит от того, что написано в ваших ДДУ или ДКП.</p>
+  </section>
+
+  <section>
+    <h2>Что ещё не подтверждено</h2>
+    <ul class="src" style="margin:0;padding-left:22px">
+      <li>Дата акта ввода дома в эксплуатацию: не видел никто из жильцов.</li>
+      <li>Обещания при продаже (ресторанный зал, детская комната, фильтр воды, 10 досуговых зон): известны со слов, нужны буклеты, скриншоты рекламы и записи.</li>
+      <li>Сдача в аренду парковочных мест, уже проданных собственникам: известно со слов жильцов. Пострадавшему стоит заявить самому, приложив документы.</li>
+      <li>Сроки, которые акимат поставил застройщику на встрече 17.09: в чатах не записаны. Запросите протокол встречи.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Источники по законам</h2>
+    <p class="src">
+      <a href="https://finratings.kz/news/10048-zastroishchik-zaderzhal-sdachu-doma-kazakhstantsam-napomnili-o-prave-na-krupnuiu-neustoiku/" target="_blank" rel="noopener">Неустойка 0,05% в день, ст. 20 Закона о долевом участии</a> ·
+      <a href="https://tengrinews.kz/tengri-home/article/novyiy-dom-treschit-shvam-obyazan-ispravit-zastroyschik-4193/" target="_blank" rel="noopener">Гарантийные сроки и ст. 665 ГК</a> ·
+      <a href="https://forbes.kz/articles/ujestochit_otvetstvennost_zastroyschikov_predlagaet_edinyiy_operator_jilischnogo_stroitelstva" target="_blank" rel="noopener">Сроки 10/3/2 года от ввода</a> ·
+      <a href="https://finratings.kz/news/15132-garantiia-na-novostroiki-vyrosla-chto-izmenilos-dlia-pokupatelei-zhilia-s-1-iiulia/" target="_blank" rel="noopener">Строительный кодекс с 01.07.2026</a> ·
+      <a href="https://www.zakon.kz/pravo/6484785-novye-shtrafy-za-narusheniya-zhilishchnogo-zakonodatelstva-poyavyatsya-v-kazakhstane.html" target="_blank" rel="noopener">Ст. 320 КоАП, штрафы УК и ОСИ</a> ·
+      <a href="https://wfin.kz/publikatsii/prognozy/49231-chto-delat-esli-zastrojshchik-navyazyvaet-svoyu-upravlyayushchuyu-kompaniyu.html" target="_blank" rel="noopener">Если застройщик навязал свою УК</a> ·
+      <a href="https://adilet.zan.kz/rus" target="_blank" rel="noopener">Официальные тексты: adilet.zan.kz</a>
+    </p>
+  </section>
+</div>
+
+<script>
+const TODAY = new Date();
+const WHO = {Z:"Застройщик ТОО «TURAN Palace»",UK:"УК «Turan Service» (сервисное обслуживание)",S:"Продавец по договору (отдел продаж)",G:"Госорган / подрядчик",R:"Жильцы, инициативная группа"};
+const ST = {overdue:"Просрочено",nodate:"Без срока",progress:"В работе",partial:"Частично",dispute:"Спорно",done:"Решено"};
+const CAT = {build:"Недоделки",park:"Паркинг",ops:"Обслуживание",money:"Деньги и тарифы",yard:"Двор и дороги",osi:"ОСИ"};
+
+const L = {
+  ddu20:{t:"Закон «О долевом участии…», ст. 20",a:"Неустойка 0,05% от цены квартиры за каждый день просрочки сдачи",u:"Посчитать по каждому ДДУ (цена × 0,05% × дни задержки) и включить в претензию"},
+  gk665:{t:"ГК РК, ст. 665",a:"Гарантия качества работы и сроки для требований по недостаткам здания",u:"Основание требовать бесплатного устранения дефектов стен, фасада, окон"},
+  gk272:{t:"ГК РК, ст. 272",a:"Обязательство исполняется надлежащим образом и в срок",u:"Шкафы, паркинг, обещанные зоны: исполнить договор или вернуть деньги"},
+  gk353:{t:"ГК РК, ст. 353",a:"Проценты за пользование чужими деньгами при неисполнении денежного обязательства",u:"Вернуть предоплату за шкафы с процентами"},
+  gk178:{t:"ГК РК, ст. 178",a:"Общий срок исковой давности 3 года",u:"Не затягивать: срок идёт с момента, когда узнали о нарушении"},
+  zhil42:{t:"Закон «О жилищных отношениях», ст. 42, 42-1",a:"Собственники выбирают форму управления; собрание решает, кто управляет и сколько платить",u:"Требовать протокол собрания, которым выбрана УК, утверждён тариф 150 ₸ и домофон"},
+  zhil44:{t:"Закон «О жилищных отношениях», ст. 44",a:"ОСИ создаётся с момента госрегистрации и становится юрлицом",u:"После регистрации ОСИ подаёт претензии и иски от имени всего дома"},
+  koap320:{t:"КоАП РК, ст. 320 (с 15.09.2025)",a:"Ч. 5: нарушение сроков ежемесячного и годового отчёта, 50 МРП. Ч. 8: непередача документации при смене управления, 50 МРП (физлица) / 100 МРП (юрлица)",u:"Жалоба в жилищную инспекцию акимата, если УК не даёт отчёты или потом не передаст документы ОСИ"},
+  koap410:{t:"КоАП РК, ст. 410",a:"Нарушение требований пожарной безопасности",u:"Паркинг работает без оповещения о пожаре: жалоба в ДЧС района Нура"},
+  gask:{t:"Госархстройконтроль (ГАСК)",a:"Проверка, предписание застройщику, админштраф за нарушения в строительстве",u:"Фасад, наружная лестница, вентиляция: обращение через eOtinish (одно уже подано 09.09)"},
+  appk91:{t:"АППК РК, ст. 91",a:"Досудебное обжалование действий и бездействия госорганов",u:"Если ГАСК, ДЧС или акимат ответили отпиской"},
+  gpk72:{t:"ГПК РК, ст. 72",a:"Каждая сторона доказывает то, на что ссылается",u:"Долг за свет: застройщик должен доказать показания счётчика на дату акта приёма-передачи"},
+  gpk155:{t:"ГПК РК, ст. 155–156",a:"Обеспечение иска, в том числе арест имущества ответчика",u:"Просить арест имущества застройщика вместе с иском, чтобы он не вывел активы"},
+  zpp:{t:"Закон «О защите прав потребителей»",a:"Право на достоверную информацию о товаре и на возврат денег за неисполненный договор",u:"Шкафы, обещания из рекламы; жалоба в департамент по защите прав потребителей"},
+  rek:{t:"Закон РК «О рекламе»",a:"Реклама должна быть достоверной; для жилья есть запрет на рекламу, не соответствующую проекту",u:"Если сохранились буклеты «бизнес-класс», приложить к претензии. В ДДУ, по словам жильцов, указан «комфорт», поэтому довод слабый"},
+  uk190:{t:"УК РК, ст. 190",a:"Мошенничество: завладение деньгами путём обмана",u:"Только при доказанном умысле. Без этого спор решается в гражданском суде"}
+};
+
+// pd: обещанная дата ГГГГ-ММ-ДД или null
+const I = [
+ {id:"Ф-1",cat:"build",who:"Z",st:"overdue",title:"Фасад со стороны 3-й очереди не закрыт",
+  d:"Нет облицовки и утепления торцевой стены. Застройщик вывез металл с площадки 3-й очереди; есть опасение, что компания сворачивается.",
+  first:"12.08",exec:"Застройщик (закуп материалов, подрядчик)",pd:"2026-09-07",ps:"31.08 руководитель ТОО ответил жильцам: «на следующей неделе ждём поступление денег и начнём закуп материалов». Отдел продаж говорил, что закроют, когда построят 3-ю очередь.",
+  law:["gk665","gask","gpk155"],next:"Включить в коллективную претензию; повторить обращение в ГАСК (первое подано 09.09) с требованием предписания до морозов."},
+ {id:"Ф-2",cat:"build",who:"Z",st:"nodate",title:"Наружная лестница со стороны паркинга открыта и не утеплена",
+  d:"Эвакуационный марш и технический выход во двор не закрыты. Опасно для детей, по вечерам там собираются посторонние.",
+  first:"16.08",exec:"Застройщик",pd:null,ps:"Срок не называли.",law:["gk665","gask"],next:"Фото и видео в претензию; повторить обращение в ГАСК (было 09.09)."},
+ {id:"Ф-3",cat:"build",who:"Z",st:"nodate",title:"Промерзание стен, дуют окна, щели протекают",
+  d:"Прошлой зимой в кв. 129 стены покрывались льдом. Окна свистят и продувают, у некоторых через щель протекает дождь. Жалобы с фото и видео в УК остались без ответа.",
+  first:"19.09",exec:"Застройщик (гарантия), УК (приём заявок)",pd:null,ps:"Ответа нет. Часть жильцов сама перевела окна в зимний режим, и дуть перестало.",
+  law:["gk665","gask"],next:"Собрать список квартир с фото и замером температуры; потребовать тепловизионное обследование до декабря."},
+ {id:"Ф-4",cat:"build",who:"Z",st:"nodate",title:"Холлы и подъезды хуже обещанного",
+  d:"Вместо керамогранита покраска, которая облазит; дешёвая плитка трескается; нет люстр и зоны ожидания; через рейки потолка фойе видны провода и утеплитель. Обещали «как в 1-й очереди», с диваном и люстрой.",
+  first:"16.08",exec:"Застройщик",pd:null,ps:"Срок не называли.",law:["gk665","gk272","rek"],next:"Найти буклеты или визуализации холлов, приложить к претензии."},
+ {id:"Ф-5",cat:"build",who:"Z",st:"nodate",title:"Арки, пандус, короба и пролёты не доделаны",
+  d:"В арках нет освещения и отделки, пандус не отделан, два короба не обшиты, лестничные пролёты между площадками не закончены, лестница к детской площадке не сделана.",
+  first:"16.08",exec:"Застройщик",pd:null,ps:"Срок не называли.",law:["gk665","gask"],next:"Добавить в общий дефектный акт с адресами и фото."},
+ {id:"Ф-6",cat:"build",who:"Z",st:"nodate",title:"Нет вентиляции в подъездах, шахта лифта не обшита",
+  d:"В подъездах душно. Шахта лифта не обшита. Лифты во 2-й очереди, по словам жильцов, бюджетнее, чем в 1-й.",
+  first:"16.08",exec:"Застройщик",pd:null,ps:"Срок не называли.",law:["gk665","gask"],next:"Сверить с проектом: попросить у застройщика или в ГАСК раздел вентиляции."},
+ {id:"Ф-7",cat:"build",who:"Z",st:"nodate",title:"Входные двери подъездов не закрываются",
+  d:"Магнитные замки срабатывают через раз. Часть поломок от строителей, которые дёргают двери во время ремонтов.",
+  first:"16.08",exec:"УК (ремонт), застройщик (если брак)",pd:null,ps:"Срок не называли.",law:["gk665"],next:"Заявка в УК с номером подъезда; при повторе включить в претензию."},
+ {id:"П-1",cat:"park",who:"Z",st:"overdue",title:"Паркинг сдан с опозданием и работает неофициально",
+  d:"Обещали конец июля, потом середину августа. Открыли в сентябре без официального ввода. По словам отдела продаж, «паркинг ещё могут закрыть из-за жалоб».",
+  first:"11.08",exec:"Застройщик",pd:"2026-07-31",ps:"Конец июля 2026, затем «середина августа» (со слов отдела продаж).",law:["gk272","ddu20"],next:"Запросить акт ввода паркинга; посчитать просрочку по договорам машиномест."},
+ {id:"П-2",cat:"park",who:"Z",st:"nodate",title:"Паркинг без пожарной системы, без вентиляции, с трещинами",
+  d:"Нет системы оповещения о пожаре и камер, нет вытяжной вентиляции, в полу трещины (31.10), сильный запах канализации (08.11).",
+  first:"09.09",exec:"Застройщик",pd:null,ps:"Ответа ДЧС в чатах нет.",law:["koap410","gask","gk665"],next:"Повторное обращение в ДЧС района Нура; спросить результат проверки по обращению от 09.09."},
+ {id:"П-3",cat:"park",who:"S",st:"overdue",title:"Роллетные шкафы оплачены год назад и не установлены",
+  d:"Около 500 тыс. ₸ за шкаф по отдельному договору. Продавец отвечает: «у шкафа нет кадастрового номера… будут устанавливаться позже… либо вернут деньги». На встречу не выходит.",
+  first:"25.08",exec:"Продавец по договору шкафа",pd:"2026-11-30",ps:"«В ноябре поставим» (30.10), потом «всё под вопросом».",law:["gk272","gk353","zpp","uk190"],next:"Двое покупателей уже готовят досудебную претензию; присоединиться остальным. Если до 30.11 не установят, потребовать возврат с процентами."},
+ {id:"Д-1",cat:"yard",who:"Z",st:"overdue",title:"Двор: нет озеленения и досуговых зон",
+  d:"Озеленения нет, досуговые зоны не сделаны, брусчатка поднялась, забор у 3-й очереди хлипкий, калитки нет.",
+  first:"16.08",exec:"Застройщик; контроль — акимат района Нура",pd:"2026-10-10",ps:"«До 10 октября обещали выполнить хотя бы часть работ». На встрече в акимате 17.09 застройщику поставили сроки, но какие, в чатах не записано.",
+  law:["gk272","gk665"],next:"Запросить в акимате протокол встречи 17.09 со сроками; обращение в акимат (подано 09.09) продублировать."},
+ {id:"Д-2",cat:"build",who:"Z",st:"nodate",title:"Нет помещений, обещанных при продаже",
+  d:"Ресторанный зал, комната для пожилых, детская комната, фильтр чистой воды внизу, более 10 досуговых зон. «Бизнес-класс» в рекламе, «комфорт» в договоре.",
+  first:"12.08",exec:"Застройщик",pd:null,ps:"Обещания устные и рекламные.",law:["rek","zpp","gk272"],next:"Собрать доказательства: буклеты, скриншоты сайта и Instagram, записи. Без них требование не пройдёт."},
+ {id:"Д-3",cat:"money",who:"Z",st:"nodate",title:"Дом сдали примерно на 3 года позже",
+  d:"Покупали в 2023 году «с котлована»; в 2024 стройка останавливалась. Неустойку за просрочку пока никто не требовал.",
+  first:"17.09",exec:"Каждый собственник или ОСИ",pd:null,ps:"Срок по ДДУ у каждого свой.",law:["ddu20","gk178"],next:"Сверить свой ДДУ: дату сдачи и пункт о неустойке. Срок давности 3 года, не тянуть."},
+ {id:"Д-4",cat:"yard",who:"G",st:"overdue",title:"Тротуар разбит, к дому не пройти, проезд заблокирован",
+  d:"Тротуар по ул. Хусейн бен Талал разрушили при работах АстанаРЭК. Вместо него кривая гравийная дорожка, в дождь грязь. Мусорные баки далеко. Машины блокируют выезды, СТО в доме мешала проезду скорой.",
+  first:"16.08",exec:"Организация, копавшая траншею; акимат",pd:"2026-09-30",ps:"18.09 по eOtinish ответили: «восстановят тротуар». УК писала, что вместе с акиматом благоустраивает дорогу.",
+  law:["appk91"],next:"Жалоба на неисполнение ответа от 18.09; массовые обращения в iKomek 109."},
+ {id:"О-1",cat:"ops",who:"UK",st:"nodate",title:"Протечки и нет дежурного сантехника ночью",
+  d:"Течёт постоянно: 2-й подъезд 1-й этаж (06.09 и 28.10, «с потолка льёт как из крана»), 1-й подъезд 2-й этаж (01.09), кв. 170/174 (04.10). Ночью номер сантехника не отвечает, днём на заявки тоже реагируют медленно.",
+  first:"13.08",exec:"УК: аварийная служба; застройщик, если брак монтажа",pd:null,ps:"Ответа о причине протечки 28.10 нет.",law:["zhil42","gk665"],next:"Требовать от УК круглосуточный аварийный номер в письменном виде и акт о причине каждой протечки."},
+ {id:"О-2",cat:"ops",who:"UK",st:"nodate",title:"Слабый напор и долго идёт горячая вода",
+  d:"В 3-м подъезде больше полугода; 08.11 жалобы со 2-го подъезда, 10-й этаж. Горячая вода нагревается через 10–20 минут, холодная пропадает при параллельном включении.",
+  first:"03.11",exec:"УК (стояки, фильтры), застройщик (насосы на гарантии)",pd:null,ps:"Представитель застройщика предложила проверить квартиру локально.",law:["gk665"],next:"Список квартир с проблемой; письменная заявка в УК на проверку насосной и стояков."},
+ {id:"О-3",cat:"ops",who:"UK",st:"partial",title:"Отопление: холодные батареи, ночью кто-то открывает краны",
+  d:"Отопление запустили 2–3 октября. 05.10 в 3-м подъезде (кв. 139, 150) батареи ещё были холодными. 01.11 на 9-м этаже 2-го подъезда кто-то ночью включал краны, и прорвало.",
+  first:"03.10",exec:"УК",pd:null,ps:"Обещали стабилизацию за 2–3 дня после запуска.",law:["zhil42"],next:"Проверить, у кого до сих пор холодно; потребовать опломбировать краны на этажах."},
+ {id:"О-4",cat:"ops",who:"UK",st:"nodate",title:"Уборка и мусор",
+  d:"Подъезд моют раз в 10 дней, на некоторых этажах не убирали месяц. Мусор лежал у подъезда 3 дня, дворника не видно, 11.08 горел мусор.",
+  first:"14.08",exec:"УК",pd:null,ps:"Срок не называли.",law:["zhil42","koap320"],next:"Требовать график уборки на двери каждого подъезда и отчёт о выполнении."},
+ {id:"О-5",cat:"ops",who:"UK",st:"nodate",title:"Камеры не работают со 2 октября, свет в подъездах не выключается",
+  d:"Видеонаблюдение не пишет с 02.10, из подъезда пропал велосипед. Датчики света не работают, свет горит круглосуточно, и этот расход, видимо, ложится на жильцов.",
+  first:"17.09",exec:"УК",pd:null,ps:"Срок не называли.",law:["zhil42"],next:"Письменная заявка; спросить, кто оплачивает свет в местах общего пользования."},
+ {id:"М-1",cat:"money",who:"UK",st:"dispute",title:"Тариф 150 ₸/м² без решения собрания",
+  d:"В 1-й очереди 120–130 ₸. Начисляли за апрель–лето, когда услуги почти не оказывались. Накопительный взнос 21,63 ₸/м². Часть жильцов не платит из-за несогласия с тарифом, УК грозит судом.",
+  first:"11.08",exec:"УК; решение за собранием собственников",pd:null,ps:"Обоснования тарифа нет.",law:["zhil42","koap320"],next:"Письменно запросить протокол собрания и смету. Платить хотя бы бесспорную часть, чтобы не копились пени, и оспаривать остальное."},
+ {id:"М-2",cat:"money",who:"UK",st:"dispute",title:"Нет финансовых отчётов",
+  d:"Финотчёт просили 14.09. В подъезде висит отчёт только за июль, в нём «ИП AURA, влажная уборка — 770 тыс. ₸» при одной уборщице на дом. Чеков и акта сверки нет.",
+  first:"14.09",exec:"УК",pd:null,ps:"Обещали обновлять ежемесячно.",law:["koap320","zhil42"],next:"Письменный запрос отчётов за все месяцы; при отказе жалоба в жилищную инспекцию по ст. 320 КоАП."},
+ {id:"М-3",cat:"money",who:"UK",st:"dispute",title:"Домофон: отдельная плата и начисления без установки",
+  d:"С 1 сентября домофон оплачивается отдельно, настройка стоит 5–6 тыс. ₸, начисляют и тем, у кого он не установлен. Подрядчик ссылается на собрание 05.01.26 с 51% «за».",
+  first:"20.08",exec:"УК, домофонная компания",pd:null,ps:"Протокол собрания запрошен 03.11, не показан.",law:["zhil42"],next:"Требовать копию протокола от 05.01.26. Если протокола нет, требовать перерасчёт."},
+ {id:"М-4",cat:"money",who:"Z",st:"dispute",title:"Требование оплатить свет до опломбировки",
+  d:"Застройщик требует вернуть деньги за электроэнергию от получения ключей до опломбировки счётчиков, срок 5 дней, ссылается на ст. 189 ГК. Часть жильцов уже заплатила, часть отказывается.",
+  first:"17.09",exec:"Застройщик (истец, если пойдёт в суд)",pd:null,ps:"Уведомление 29.10: «срок оплаты — 5 календарных дней».",law:["gpk72"],next:"Не платить вслепую: запросить свой акт приёма-передачи с показаниями счётчика и расчёт. Платить, только если цифры совпадают с актом."},
+ {id:"М-5",cat:"money",who:"G",st:"nodate",title:"Начисления за свет, воду и домофон в пустых квартирах",
+  d:"В черновых квартирах, где никто не живёт, приходят счета: свет 4,5–8 тыс. ₸, домофон, который не установлен.",
+  first:"17.09",exec:"Поставщики (АРЭК, водоканал), домофонная компания",pd:null,ps:"—",law:[],next:"Опломбировать счётчики (109), подать поставщику заявление о приостановке начислений для черновой квартиры и о перерасчёте."},
+ {id:"М-6",cat:"money",who:"UK",st:"nodate",title:"Нет доступа к документам и техпомещениям",
+  d:"24.09 УК отказала в обходе техпомещений без избранной инициативной группы, хотя тепловой узел в итоге осмотрели. Проектную документацию и документы дома жильцам не показывают. Контакты собственников УК не даёт, и это законно: это персональные данные.",
+  first:"24.09",exec:"УК, застройщик",pd:null,ps:"Представитель застройщика предлагала показать документы группе из 6–10 человек.",law:["zhil42","koap320"],next:"Оформить инициативную группу протоколом и письменно запросить список документов. Предложение показать документы принять, но фиксировать письменно."},
+ {id:"ОСИ-1",cat:"osi",who:"R",st:"progress",title:"Создание ОСИ 2-й очереди",
+  d:"Собрано по 2000 ₸ с 68 квартир на «Управдом» (45 000 ₸). В приложении зарегистрировано около 88 квартир (09.11). Нужно: инициативная группа (10% объектов + 1), затем голосование «за» более 50% собственников. Кандидат в председатели предложен 01.10. Меньше всего регистраций в 3-м блоке.",
+  first:"14.09",exec:"Инициативная группа, ответственные по подъездам",pd:null,ps:"Сами жильцы ставили цель закончить голосование в ноябре.",law:["zhil42","zhil44"],next:"Обход 3-го блока; бумажные листы для тех, кто не справляется с приложением; распечатать объявление с QR в лифтах."},
+ {id:"ОСИ-2",cat:"osi",who:"R",st:"nodate",title:"Шлагбаум и посторонние машины",
+  d:"Двор заставляют чужие машины, в том числе сотрудники соседнего здания, а пандусы перекрыты. Предлагают шлагбаум с пультами для жильцов.",
+  first:"05.11",exec:"Жильцы; решение собрания и согласование с ГАИ",pd:null,ps:"—",law:["zhil42"],next:"Узнать цену и порядок согласования; решать через собрание или ОСИ."}
+];
+
+function daysLate(pd){ if(!pd) return null; const d=new Date(pd+"T23:59:59"); return Math.floor((TODAY-d)/86400000); }
+function dn(n){n=Math.abs(n)%100;const m=n%10;if(n>10&&n<20)return "дней";if(m===1)return "день";if(m>1&&m<5)return "дня";return "дней";}
+function fmt(pd){ const [y,m,d]=pd.split("-"); return d+"."+m+"."+y; }
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+let fState="all";
+function bucket(st){return st==="partial"?"progress":st;}
+function render(){
+  const who=document.getElementById("who").value, q=document.getElementById("q").value.trim().toLowerCase();
+  const rows=I.filter(x=>(fState==="all"||bucket(x.st)===fState)&&(!who||x.who===who)&&(!q||(x.title+" "+x.d+" "+x.ps+" "+x.next).toLowerCase().includes(q)));
+  const order={overdue:0,dispute:1,nodate:2,progress:3,partial:3,done:4};
+  rows.sort((a,b)=>order[a.st]-order[b.st]);
+  document.getElementById("count").textContent=rows.length+" из "+I.length;
+  const list=document.getElementById("list");
+  if(!rows.length){list.innerHTML='<div class="empty">Ничего не найдено. Сбросьте фильтр или измените запрос.</div>';return;}
+  list.innerHTML=rows.map(x=>{
+    const dl=daysLate(x.pd);
+    let due='<span class="due">Срок: не назван</span>';
+    if(x.pd){ due= dl>0?`<span class="due late">Обещали к ${fmt(x.pd)}. Просрочено на ${dl} ${dn(dl)}.</span>`:`<span class="due">Новый обещанный срок: ${fmt(x.pd)}. Осталось ${-dl} ${dn(-dl)}.</span>`; }
+    const law=x.law.length?'<div class="law">'+x.law.map(k=>`<a href="#law-${k}">${esc(L[k].t)}</a>`).join("")+'</div>':'<span>—</span>';
+    return `<details class="card st-${x.st}" id="card-${x.id}">
+      <summary><div class="t"><div class="meta"><span class="id">${x.id}</span><span>${CAT[x.cat]}</span><span>впервые написали ${x.first}</span></div>
+      <h3>${esc(x.title)}</h3><div class="meta"><span class="pill">${ST[x.st]}</span><span>Отвечает: ${esc(WHO[x.who])}</span></div></div>${due}<span class="more">Подробнее</span></summary>
+      <div class="body">
+        <div class="f wide"><span class="k">Суть</span><p>${esc(x.d)}</p></div>
+        <div class="f"><span class="k">Кто отвечает</span><p>${esc(WHO[x.who])}</p></div>
+        <div class="f"><span class="k">Кто должен сделать</span><p>${esc(x.exec)}</p></div>
+        <div class="f wide"><span class="k">Что обещали</span><p>${esc(x.ps)}</p></div>
+        <div class="f wide"><span class="k">Статьи</span>${law}</div>
+        <div class="f wide"><span class="k">Следующий шаг</span><p>${esc(x.next)}</p></div>
+      </div></details>`;}).join("");
+}
+function stats(){
+  const c={overdue:0,nodate:0,progress:0,dispute:0};
+  I.forEach(x=>c[bucket(x.st)]=(c[bucket(x.st)]||0)+1);
+  const lbl={overdue:"просрочено обещаний",nodate:"висят без срока",dispute:"спорных начислений",progress:"в работе у жильцов"};
+  document.getElementById("stats").innerHTML=Object.keys(lbl).map(k=>`<button class="stat s-${k}" data-f="${k}" id="stat-${k}"><b>${c[k]||0}</b><span>${lbl[k]}</span></button>`).join("");
+}
+function setF(f){fState=f;document.querySelectorAll(".chip[data-f]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.f===f));render();}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-f]");if(b){setF(b.dataset.f);if(b.classList.contains("stat"))document.querySelector(".controls").scrollIntoView({behavior:"smooth"});}});
+document.getElementById("who").addEventListener("change",render);
+document.getElementById("q").addEventListener("input",render);
+document.getElementById("laws").innerHTML=Object.entries(L).map(([k,v])=>`<div class="lawrow" id="law-${k}"><b>${esc(v.t)}</b><p><span class="k">О чём: </span>${esc(v.a)}</p><p><span class="k">Как применить у нас: </span>${esc(v.u)}</p></div>`).join("");
+stats();render();
+</script>
+</body>
+</html>
